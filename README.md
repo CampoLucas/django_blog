@@ -9,8 +9,11 @@
           <h2>Python Blog</h2>
           
       </header>
-      <div>
-          <p>This is my project</p>
-      </div>
+      <main>
+          <div>
+              
+            <p>This is my project</p>
+          </div>  
+      </main>
   </body>
 </html>
