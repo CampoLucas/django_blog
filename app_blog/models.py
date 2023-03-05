@@ -43,7 +43,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=100)
     subtitle = models.CharField(max_length=100, blank=True)
     description = models.TextField(max_length=600, blank=True)
-    author = models.ForeignKey(BlogUser, on_delete=models.CASCADE, related_name='author')
+    author = models.ForeignKey(BlogUser, on_delete=models.CASCADE, related_name='related_blogs')
     date_created = models.DateTimeField(auto_now_add=True)
     url = models.SlugField(max_length=200, unique=True, editable=False)
 
@@ -72,6 +72,6 @@ class Post(models.Model):
         return f"{self.id:03}. {self.title} (Blog: {self.blog.title}) ({state_str})"
     
     def save(self, *args, **kwargs):
-        self.url = f"post_{self.pk}"
+        self.url = f"post_{self.id}_{slugify(self.title)}"
         super().save(*args, **kwargs)
 
