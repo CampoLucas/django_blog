@@ -2,8 +2,10 @@
 <html>
     <body>
       <header>
-          <h2>My Project</h2>
-          <p>Welcome to my project! This is a description of what my project does.</p>
+          <h1>Proyecto Final Coder House</h1>
+          <h3>Python Blog</h3>
+          <p>Comision: 48405</p>
+          <p>Alumno: Lucas Campo</p>
       </header>
       <div>
           <p>This is my project</p>
