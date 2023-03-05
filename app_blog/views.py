@@ -18,3 +18,12 @@ def view_post_page(request, blog_url, post_url):
     post = get_object_or_404(Post, url=post_url, blog=blog)
     context = {'post': post}
     return render(request, 'app_blog/post_page.html', context)
+
+def login(request):
+    return render(request, 'app_blog/login.html')
+
+def register(request):
+    return render(request, 'app_blog/register.html')
+
+def home(request):
+    return render(request, 'app_blog/home.html')
