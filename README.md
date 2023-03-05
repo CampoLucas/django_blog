@@ -2,7 +2,7 @@
 <html>
     <body>
       <header>
-          <h3 style="font-size:16px">Proyecto Final Coder House</h3>
+          <h3 style="font-size:22px">Proyecto Final Coder House</h3>
           <h3>Python Blog</h3>
           <p>Comision: 48405</p>
           <p>Alumno: Lucas Campo</p>
