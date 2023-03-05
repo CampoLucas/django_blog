@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>My Blog</title>
-        <style>
-            .title{
-                color: blue;
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            <h1 class="title" style="color = blue;">Projecto Final Coder House Python</h1>
-        </header>
-    </body>
+<html>
+  <head>
+    <title>My Project</title>
+    <style>
+      /* Add some styles to the rectangle */
+      .rectangle {
+        width: 200px;
+        height: 100px;
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header section with title and text -->
+    <header>
+      <h1>My Project</h1>
+      <p>Welcome to my project! This is a description of what my project does.</p>
+    </header>
+    <!-- Body section with rectangle -->
+    <div class="rectangle"></div>
+  </body>
 </html>
