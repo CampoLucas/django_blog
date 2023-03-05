@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <title>My Blog</title>
-    
+    <style>
+        .title{
+            color: blue;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Projecto Final Coder House Python</h1>
+        <h1 class="title">Projecto Final Coder House Python</h1>
     </header>
 </body>
 </html>
