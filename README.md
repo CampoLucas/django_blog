@@ -2,7 +2,7 @@
 <html>
     <body>
       <header>
-          <h1>My Project</h1>
+          <h3>My Project</h3>
           <p>Welcome to my project! This is a description of what my project does.</p>
       </header>
       <div>
