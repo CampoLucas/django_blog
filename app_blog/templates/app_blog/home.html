@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<title>My Blog - Home</title>
+</head>
+<body>
+	<h1>Latest Posts</h1>
+	<ul>
+		{% for post in posts %}
+		<div>
+			<h2><a href="{% url 'post_detail' post.blog.url post.url %}">{{ post.title }}</a></h2>
+            <h4><a href="{% url 'blog_detail' post.blog.url %}">{{ post.blog.title }}</a></h1>
+			<p>{{ post.body|slice:":300" }}{% if post.body|length > 200 %}...{% endif %}</p>
+			<p>Published on {{ post.date_posted }}</p>
+            <hr>
+        </div>
+		{% endfor %}
+	</ul>
+</body>
+</html>
