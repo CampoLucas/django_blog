@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from app_blog.models import BlogUser, Blog, Post
 
 def view_user_profile(request, username):
-    user = get_object_or_404(BlogUser, username=username)
+    user = get_object_or_404(BlogUser, username=username.lower())
     context = {'user': user}
     return render(request, 'app_blog/user_profile.html', context)
 
@@ -26,4 +26,5 @@ def register(request):
     return render(request, 'app_blog/register.html')
 
 def home(request):
-    return render(request, 'app_blog/home.html')
+    latest_posts = Post.objects.order_by('-date_posted')
+    return render(request, 'app_blog/home.html', {'posts': latest_posts})

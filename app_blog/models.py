@@ -2,14 +2,16 @@ from django.contrib.auth.models import AbstractUser, Permission, Group
 from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+import datetime
 
 class BlogUser(AbstractUser):
-    name = models.CharField(max_length=255, blank=True)
+    display_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', default='app_blog/assets/default_profile_picture.jpg', blank=True)
     bio = models.TextField(max_length=300, blank=True)
     url = models.SlugField(max_length=200, unique=True, editable=False)
-    date_registered = models.DateTimeField(auto_now_add=True)
+    phone_number = models.CharField(max_length=20, blank=True)
+    birthday = models.DateField(default=datetime.date.today)
 
     groups = models.ManyToManyField(
         Group,
@@ -36,7 +38,8 @@ class BlogUser(AbstractUser):
         return f"{self.id:02}. {self.username.lower()}"
     
     def save(self, *args, **kwargs):
-        self.url = slugify(self.username)
+        self.url = slugify(self.username.lower())
+        self.username = self.username.lower()
         super().save(*args, **kwargs)
 
 class Blog(models.Model):
@@ -46,6 +49,7 @@ class Blog(models.Model):
     author = models.ForeignKey(BlogUser, on_delete=models.CASCADE, related_name='related_blogs')
     date_created = models.DateTimeField(auto_now_add=True)
     url = models.SlugField(max_length=200, unique=True, editable=False)
+    image = models.ImageField(upload_to='blog_pictures/', blank=True, default='app_blog/assets/default_blog_image.jpg')
 
     def __str__(self):
         return f"{self.id:04}. {self.title} ({self.related_posts.count()} posts)"
