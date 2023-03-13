@@ -3,6 +3,12 @@
 
 {% block title %}{{ post.title }} Post{% endblock %}
 
+{% block header %}
+    <header class="masthead" style="background-image: url('{% if post.blog.image %}{{ post.blog.image.url }}{% else %}/static/app_blog/assets/default_blog_image.jpg{% endif %}')">
+        
+    </header>
+{% endblock %}
+
 {% block main %}
 	<main>
 		

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app_blog.views import view_user_profile, view_blog_page, view_post_page, login, register, home, UserProfileView, BlogDetailView, PostDetailView
+from app_blog.views import login, register, UserProfileView, BlogDetailView, PostDetailView, HomeListView, BlogUpdateView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -23,8 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('@<str:username>', UserProfileView.as_view(), name='user_profile'),
     path('blog/<slug:url>', BlogDetailView.as_view(), name='blog_detail'),
-    path('', home, name='home'),
+    path('blog/<slug:url>/update', BlogUpdateView.as_view(), name='blog_update'),
     path('login/', login, name='login'),
     path('register/', register, name='register'),
     path('blog/<slug:blog_url>/<int:pk>', PostDetailView.as_view(), name='post_detail'),
+    path('', HomeListView.as_view(), name='home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

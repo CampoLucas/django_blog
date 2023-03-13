@@ -3,33 +3,11 @@ from app_blog.models import BlogUser, Blog, Post
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-def view_user_profile(request, username):
-    user = get_object_or_404(BlogUser, username=username.lower())
-    context = {'user': user}
-    return render(request, 'app_blog/user_profile.html', context)
-
-def view_blog_page(request ,blog_url):
-    blog = get_object_or_404(Blog, url=blog_url)
-    posts = blog.related_posts.all()
-    user = blog.author
-    context = {'blog': blog, 'posts': posts}
-    return render(request, 'app_blog/blog_page.html', context)
-
-def view_post_page(request, blog_url, post_url):
-    blog = get_object_or_404(Blog, url=blog_url)
-    post = get_object_or_404(Post, url=post_url, blog=blog)
-    context = {'post': post}
-    return render(request, 'app_blog/post_page.html', context)
-
 def login(request):
     return render(request, 'app_blog/login.html')
 
 def register(request):
     return render(request, 'app_blog/register.html')
-
-def home(request):
-    latest_posts = Post.objects.order_by('-date_posted')
-    return render(request, 'app_blog/home.html', {'posts': latest_posts})
 
 class UserProfileView(DetailView):
     model = BlogUser
@@ -48,6 +26,18 @@ class BlogDetailView(DetailView):
     def get_object(self, queryset=None):
         url = self.kwargs.get('url')
         return get_object_or_404(Blog, url=url)
+    
+class BlogUpdateView(UpdateView):
+    model = Blog
+    success_url = reverse_lazy('blog_detail')
+    fields = '__all__'
+
+    def get_object(self, queryset=None):
+        url = self.kwargs.get('url')
+        return get_object_or_404(Blog, url=url)
+    
+    def get_success_url(self):
+        return reverse_lazy('blog_detail', kwargs={'url': self.kwargs['url']})
     
 class PostDetailView(DetailView):
     model = Post
@@ -68,3 +58,9 @@ class PostCreateView(CreateView):
     def form_valid(self, form):
         form.instance.blog = Blog.objects.get(url=self.kwargs['blog_url'])
         return super().form_valid(form)
+    
+class HomeListView(ListView):
+    model = Post
+    template_name = 'app_blog/home.html'
+    context_object_name = 'posts'
+    ordering = ['-date_posted']

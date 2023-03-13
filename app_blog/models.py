@@ -49,7 +49,7 @@ class Blog(models.Model):
     author = models.ForeignKey(BlogUser, on_delete=models.CASCADE, related_name='related_blogs')
     date_created = models.DateTimeField(auto_now_add=True)
     url = models.SlugField(max_length=200, unique=True, editable=False)
-    image = models.ImageField(upload_to='blog_pictures/', blank=True, default='app_blog/assets/default_blog_image.jpg')
+    image = models.ImageField(upload_to='blog_pictures/', null=True, blank=True, default='app_blog/assets/default_blog_image.jpg')
 
     def __str__(self):
         return f"{self.id:04}. {self.title} ({self.related_posts.count()} posts)"
