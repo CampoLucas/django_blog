@@ -9,7 +9,7 @@
 	<ul>
 		{% for post in posts %}
 		<div>
-			<h2><a href="{% url 'post_detail' post.blog.url post.url %}">{{ post.title }}</a></h2>
+			<h2><a href="{% url 'post_detail' post.blog.url post.id %}">{{ post.title }}</a></h2>
             <h4><a href="{% url 'blog_detail' post.blog.url %}">{{ post.blog.title }}</a></h1>
 			<p>{{ post.body|slice:":300" }}{% if post.body|length > 200 %}...{% endif %}</p>
 			<p>Published on {{ post.date_posted }}</p>

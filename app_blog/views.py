@@ -41,3 +41,21 @@ class UserProfileView(DetailView):
         username = self.kwargs.get(self.slug_field)
         # retrieve the corresponding BlogUser object
         return get_object_or_404(BlogUser, **{self.slug_field: username})
+    
+class BlogDetailView(DetailView):
+    model = Blog
+
+    def get_object(self, queryset=None):
+        url = self.kwargs.get('url')
+        return get_object_or_404(Blog, url=url)
+    
+class PostDetailView(DetailView):
+    model = Post
+    content_object_name = 'post'
+
+    def get_object(self, queryset=None):
+        blog_url = self.kwargs.get('blog_url')
+        pk = self.kwargs.get('pk')
+        blog = get_object_or_404(Blog, url=blog_url)
+        post = get_object_or_404(Post, pk=pk, blog=blog)
+        return post
