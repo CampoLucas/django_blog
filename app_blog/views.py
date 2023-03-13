@@ -59,3 +59,12 @@ class PostDetailView(DetailView):
         blog = get_object_or_404(Blog, url=blog_url)
         post = get_object_or_404(Post, pk=pk, blog=blog)
         return post
+    
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['title', 'body', 'state']
+    template_name = 'app_blog/post_form.html'
+
+    def form_valid(self, form):
+        form.instance.blog = Blog.objects.get(url=self.kwargs['blog_url'])
+        return super().form_valid(form)

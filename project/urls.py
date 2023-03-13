@@ -21,10 +21,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('@<str:username>/', UserProfileView.as_view(), name='user_profile'),
-    path('blog/<slug:url>/', BlogDetailView.as_view(), name='blog_detail'),
+    path('@<str:username>', UserProfileView.as_view(), name='user_profile'),
+    path('blog/<slug:url>', BlogDetailView.as_view(), name='blog_detail'),
     path('', home, name='home'),
     path('login/', login, name='login'),
     path('register/', register, name='register'),
-    path('blog/<slug:blog_url>/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
+    path('blog/<slug:blog_url>/<int:pk>', PostDetailView.as_view(), name='post_detail'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

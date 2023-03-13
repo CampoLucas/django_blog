@@ -1,29 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ post.title }} Post</title>
-</head>
-<body>
-    <header>
-        <div>
-            <a href="{% url 'blog_detail' post.blog.url %}">{{ post.blog.title }}</a>
-        </div>
-    </header>
+{% extends "app_blog/base.html" %}
+{% load static %}
 
-    <main>
-        <h1>{{ post.title }}</h1>
-        <div>
-            <p style="white-space: pre; display: block;">{{ post.body }}</p>
-        </div>
-        
-        <hr>
-    </main>
+{% block title %}{{ post.title }} Post{% endblock %}
 
-    <footer>
-        <p>{{ post.date_posted }}</p>
-    </footer>
-</body>
-</html>
+{% block main %}
+	<main>
+		
+
+		<div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+					<div>
+                        <a class="h5" href="{% url 'blog_detail' post.blog.url %}">{{ post.blog.title }}</a>
+                    </div>
+                    <h1>{{ post.title }}</h1>
+                    <div>
+                        <p style="white-space: pre; display: block;">{{ post.body }}</p>
+                    </div>
+                    
+                    <hr>
+                    <div class="post-preview">
+                        <p class="post-meta">
+                            Posted by
+                            <a href="{% url 'user_profile' post.blog.author.username %}">{{ post.blog.author.display_name }}</a>
+                            on {{ post.date_posted }}
+                        </p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+	</main>
+{% endblock %}
