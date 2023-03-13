@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from app_blog.models import BlogUser, Blog, Post
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 def view_user_profile(request, username):
     user = get_object_or_404(BlogUser, username=username.lower())
@@ -28,3 +30,14 @@ def register(request):
 def home(request):
     latest_posts = Post.objects.order_by('-date_posted')
     return render(request, 'app_blog/home.html', {'posts': latest_posts})
+
+class UserProfileView(DetailView):
+    model = BlogUser
+    context_object_name = 'user'
+    slug_field = 'username'  # use the 'username' field as the slug field
+
+    def get_object(self, queryset=None):
+        # get the 'username' argument from the URL
+        username = self.kwargs.get(self.slug_field)
+        # retrieve the corresponding BlogUser object
+        return get_object_or_404(BlogUser, **{self.slug_field: username})

@@ -1,22 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from app_blog.models import BlogUser, Blog, Post
-
-class BlogUserCreationForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = BlogUser
-        fields = ('username', 'password1', 'password2', 'email', 'birthday', 'display_name')
-
-
-class BlogUserForm(UserChangeForm):
-    class Meta(UserChangeForm.Meta):
-        model = BlogUser
-        fields = ('username', 'display_name', 'email', 'phone_number', 'birthday', 'bio', 'profile_picture', 'password', 'date_joined')
-
+from app_blog.forms import BlogUserUpdateForm, BlogUserCreationForm
 
 class BlogUserAdmin(UserAdmin):
-    form = BlogUserForm
+    form = BlogUserUpdateForm
     add_form = BlogUserCreationForm
     
     list_display = ('username', 'display_name', 'email', 'date_joined', 'last_login', 'is_staff')

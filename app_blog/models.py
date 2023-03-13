@@ -8,9 +8,9 @@ class BlogUser(AbstractUser):
     display_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', default='app_blog/assets/default_profile_picture.jpg', blank=True)
-    bio = models.TextField(max_length=300, blank=True)
+    bio = models.TextField(max_length=300, blank=True, null=True)
     url = models.SlugField(max_length=200, unique=True, editable=False)
-    phone_number = models.CharField(max_length=20, blank=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
     birthday = models.DateField(default=datetime.date.today)
 
     groups = models.ManyToManyField(
@@ -44,8 +44,8 @@ class BlogUser(AbstractUser):
 
 class Blog(models.Model):
     title = models.CharField(max_length=100)
-    subtitle = models.CharField(max_length=100, blank=True)
-    description = models.TextField(max_length=600, blank=True)
+    subtitle = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(max_length=600, blank=True, null=True)
     author = models.ForeignKey(BlogUser, on_delete=models.CASCADE, related_name='related_blogs')
     date_created = models.DateTimeField(auto_now_add=True)
     url = models.SlugField(max_length=200, unique=True, editable=False)

@@ -15,16 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app_blog.views import view_user_profile, view_blog_page, view_post_page, login, register, home
+from app_blog.views import view_user_profile, view_blog_page, view_post_page, login, register, home, UserProfileView
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('@<str:username>/', view_user_profile, name='user_profile'),
-    path('blog/<slug:blog_url>/', view_blog_page, name='blog_detail'),
-    path('blog/<slug:blog_url>/<slug:post_url>/', view_post_page, name='post_detail'),
+    path('@<str:username>/', UserProfileView.as_view(), name='user_profile'),
+    path('', home, name='home'),
     path('login/', login, name='login'),
     path('register/', register, name='register'),
-    path('', home, name='home'),
+    path('blog/<slug:blog_url>/', view_blog_page, name='blog_detail'),
+    path('blog/<slug:blog_url>/<slug:post_url>/', view_post_page, name='post_detail'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
