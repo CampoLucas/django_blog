@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from app_blog.models import BlogUser, Blog, Post
-from app_blog.forms import BlogForm, PostForm, BlogUserCreationForm, BlogUserUpdateForm
+from app_blog.forms import BlogForm, PostForm, BlogUserCreationForm, BlogUserUpdateForm, BlogUserLoginForm
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
@@ -12,6 +12,7 @@ class BlogUserSignUp(CreateView):
 
 class BlogUserLogin(LoginView):
     next_page = reverse_lazy('home')
+    authentication_form = BlogUserLoginForm
 
 class BlogUserLogOut(LogoutView):
     next_page = reverse_lazy('home')

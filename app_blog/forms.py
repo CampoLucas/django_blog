@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm, AuthenticationForm
 from app_blog.models import Post, Blog, BlogUser
 
 class PostForm(forms.ModelForm):
@@ -32,3 +32,15 @@ class BlogUserUpdateForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = BlogUser
         fields = ('username', 'display_name', 'email', 'bio', 'profile_picture', 'password')
+
+class BlogUserLoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+    
+    class Meta:
+        model = BlogUser
+        fields = ['username', 'password']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username', 'required': True}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', 'required': True}),
+        }
