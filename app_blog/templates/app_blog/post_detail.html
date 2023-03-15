@@ -9,32 +9,31 @@
     </header>
 {% endblock %}
 
-{% block main %}
-	<main>
-		
+{% block container %}
+    <div>
+        <a class="h5" href="{% url 'blog-detail' post.blog.id %}">{{ post.blog.title }}</a>
+    </div>
+    <h1>{{ post.title }}</h1>
+    <div>
+        <p style="white-space: pre; display: block;">{{ post.body }}</p>
+    </div>
 
-		<div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-					<div>
-                        <a class="h5" href="{% url 'blog_detail' post.blog.url %}">{{ post.blog.title }}</a>
-                    </div>
-                    <h1>{{ post.title }}</h1>
-                    <div>
-                        <p style="white-space: pre; display: block;">{{ post.body }}</p>
-                    </div>
-                    
-                    <hr>
-                    <div class="post-preview">
-                        <p class="post-meta">
-                            Posted by
-                            <a href="{% url 'user_profile' post.blog.author.username %}">{{ post.blog.author.display_name }}</a>
-                            on {{ post.date_posted }}
-                        </p>
-                    </div>
-                    
-                </div>
+    <hr>
+    <div class="post-preview">
+        <p class="post-meta">
+            Posted by
+            <a href="{% url 'user-detail' post.blog.author.id %}">{{ post.blog.author.display_name }}</a>
+            on {{ post.date_posted }}
+        </p>
+    </div>
+    <div class="d-flex justify-content-center mb-4">
+        <div class="row ">
+            <div class="col">
+                <a class="btn btn-primary text-uppercase" href="#">
+                    Update</a>
+                <a class="btn btn-danger text-uppercase" href="#">
+                    Delete</a>
             </div>
         </div>
-	</main>
+    </div>
 {% endblock %}

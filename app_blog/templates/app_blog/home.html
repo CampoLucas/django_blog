@@ -9,42 +9,31 @@
     </header>
 {% endblock %}
 
-{% block main %}
-	<main>
-		
-
-		<div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-					<h1>Latest Posts</h1>
-                    {% if posts %}
-                        {% for post in posts %}
-                            {% if post.state == True %}
-                                <!-- Post preview-->
-                                <div class="post-preview">
-                                    <a href="{% url 'post_detail' post.blog.url post.id %}">
-                                        <h2 class="post-title">{{ post.title }}</h2>
-                                        <h3 class="post-subtitle">{{ post.body|slice:":100" }}{% if post.body|length > 200 %}...{% endif %}</h3>
-                                    </a>
-                                    <p class="post-meta">
-                                        Posted by
-                                        <a href="{% url 'user_profile' post.blog.author.username %}">{{ post.blog.author.display_name }}</a>
-                                        on {{ post.date_posted }}
-                                    </p>
-                                </div>
-                                <!-- Divider-->
-                                <hr class="my-4" />
-                            {% endif %}
-                        {% endfor %}
-                    {% else %}
-                    <div class="post-preview">
-                        <p class="post-meta">No posts yet.</p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    {% endif %}
-                </div>
+{% block container %}
+    <h1>Latest Posts</h1>
+    <hr class="my-4" />
+    {% if posts %}
+        {% for post in posts %}
+            <!-- Post preview-->
+            <div class="post-preview">
+                <a href="{% url 'post-detail' post.id %}">
+                    <h2 class="post-title">{{ post.title }}</h2>
+                    <h3 class="post-subtitle">{{ post.body|slice:":100" }}{% if post.body|length > 200 %}...{% endif %}</h3>
+                </a>
+                <p class="post-meta">
+                    Posted by
+                    <a href="{% url 'user-detail' post.blog.author.id %}">{{ post.blog.author.display_name }}</a>
+                    on {{ post.date_posted }}
+                </p>
             </div>
-        </div>
-	</main>
+            <!-- Divider-->
+            <hr class="my-4" />
+        {% endfor %}
+    {% else %}
+    <div class="post-preview">
+        <p class="post-meta">No posts yet.</p>
+    </div>
+    <!-- Divider-->
+    <hr class="my-4" />
+{% endif %}
 {% endblock %}

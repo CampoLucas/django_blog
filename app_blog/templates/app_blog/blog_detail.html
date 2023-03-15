@@ -19,50 +19,42 @@
     </header>
 {% endblock %}
 
-{% block main %}
-    <main>
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    {% if blog.related_posts.all %}
-                        {% for post in blog.related_posts.all %}
-                            {% if post.state == True %}
-                                <!-- Post preview-->
-                                <div class="post-preview">
-                                    <a href="{% url 'post_detail' post.blog.url post.id %}">
-                                        <h2 class="post-title">{{ post.title }}</h2>
-                                        <h3 class="post-subtitle">{{ post.body|slice:":100" }}{% if post.body|length > 200 %}...{% endif %}</h3>
-                                    </a>
-                                    <p class="post-meta">
-                                        Posted by
-                                        <a href="{% url 'user_profile' blog.author.username %}">{{ post.blog.author.display_name }}</a>
-                                        on {{ post.date_posted }}
-                                    </p>
-                                </div>
-                                <!-- Divider-->
-                                <hr class="my-4" />
-                            {% endif %}
-                        {% endfor %}
-                    {% else %}
-                    <div class="post-preview">
-                        <p class="post-meta">No posts yet.</p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    {% endif %}
-                    <!-- Pager-->
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="row ">
-                            <div class="col">
-                                <a class="btn btn-primary text-uppercase" href="{% url 'blog_update' blog.url %}">
-                                    Update</a>
-                                <a class="btn btn-danger text-uppercase" href="#!">
-                                    Delete</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{% block container %}
+    {% if blog.related_posts.all %}
+    {% for post in blog.related_posts.all %}
+        <!-- Post preview-->
+        <div class="post-preview">
+            <a href="{% url 'post-detail' post.id %}">
+                <h2 class="post-title">{{ post.title }}</h2>
+                <h3 class="post-subtitle">{{ post.body|slice:":100" }}{% if post.body|length > 200 %}...{% endif %}</h3>
+            </a>
+            <p class="post-meta">
+                Posted by
+                <a href="{% url 'user-detail' blog.author.id %}">{{ post.blog.author.display_name }}</a>
+                on {{ post.date_posted }}
+            </p>
         </div>
-    </main>
+        <!-- Divider-->
+        <hr class="my-4" />
+    {% endfor %}
+    {% else %}
+    <div class="post-preview">
+    <p class="post-meta">No posts yet.</p>
+    </div>
+    <!-- Divider-->
+    <hr class="my-4" />
+    {% endif %}
+    <!-- Pager-->
+    <div class="d-flex justify-content-center mb-4">
+    {% if request.user == blog.author %}
+    <div class="row ">
+        <div class="col">
+            <a class="btn btn-primary text-uppercase" href="{% url 'blog-update' blog.id %}">
+                Update</a>
+            <a class="btn btn-danger text-uppercase" href="#!">
+                Delete</a>
+        </div>
+    </div>
+    {%endif%}
+    </div>
 {% endblock %}

@@ -13,7 +13,7 @@ class BlogUserAdmin(UserAdmin):
 
     fieldsets = (
         ('PROFILE', {'fields': ('display_name', 'username', 'bio', 'profile_picture')}),
-        ('PERSONAL INFORMATION', {'fields': ('email', 'phone_number', 'birthday')}),
+        ('PERSONAL INFORMATION', {'fields': ('email',)}),
         ('SECURITY', {'fields': ('password',)}),
         ('DATES', {'fields': ('last_login', 'date_joined')}),
         ('PERMISSIONS', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
@@ -22,7 +22,7 @@ class BlogUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'display_name', 'email', 'birthday', 'password1', 'password2'),
+            'fields': ('username', 'display_name', 'email', 'password1', 'password2'),
         }),
     )
 

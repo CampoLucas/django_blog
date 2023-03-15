@@ -15,17 +15,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app_blog.views import login, register, UserProfileView, BlogDetailView, PostDetailView, HomeListView, BlogUpdateView
+from app_blog.views import ( BlogUserLogin, BlogUserSignUp, BlogUserLogOut, BlogUserDetail, BlogUserUpdate, BlogUserDelete, BlogDetail, BlogCreate, BlogUpdate, BlogDelete, 
+    PostDetail, PostCreate, PostUpdate, PostDelete, HomeList, MessageDetail, MessageCreate, MessageDelete, MessageList )
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('@<str:username>', UserProfileView.as_view(), name='user_profile'),
-    path('blog/<slug:url>', BlogDetailView.as_view(), name='blog_detail'),
-    path('blog/<slug:url>/update', BlogUpdateView.as_view(), name='blog_update'),
-    path('login/', login, name='login'),
-    path('register/', register, name='register'),
-    path('blog/<slug:blog_url>/<int:pk>', PostDetailView.as_view(), name='post_detail'),
-    path('', HomeListView.as_view(), name='home'),
+    path('', HomeList.as_view(), name='home'),
+    path('login', BlogUserLogin.as_view(), name='login'),
+    path('register', BlogUserSignUp.as_view(), name='register'),
+    path('logout', BlogUserLogOut.as_view(), name='logout'),
+    path('user/<pk>', BlogUserDetail.as_view(), name='user-detail'),
+    path('user/<pk>/update', BlogUserUpdate.as_view(), name='user-update'),
+    path('user/<pk>/delete', BlogUserDelete.as_view(), name='user-delete'),
+    path('blog/<pk>', BlogDetail.as_view(), name='blog-detail'),
+    path('blog/<pk>/add', BlogCreate.as_view(), name='blog-add'),
+    path('blog/<pk>/update', BlogUpdate.as_view(), name='blog-update'),
+    path('blog/<pk>/delete', BlogDelete.as_view(), name='blog-delete'),
+    path('post/<pk>', PostDetail.as_view(), name='post-detail'),
+    path('post/<pk>/add', PostCreate.as_view(), name='post-add'),
+    path('post/<pk>/update', PostUpdate.as_view(), name='post-update'),
+    path('post/<pk>/delete', PostDelete.as_view(), name='post-delete'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

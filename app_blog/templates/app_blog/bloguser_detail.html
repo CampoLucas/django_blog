@@ -23,7 +23,7 @@
                         {% if user.related_blogs.all %}
                             
                             {% for blog in user.related_blogs.all %}
-                                <div><a href="{% url 'blog_detail' blog.url %}">{{ blog.title }}</a></div>
+                                <div><a href="{% url 'blog-detail' blog.id %}">{{ blog.title }}</a></div>
                             {% endfor %}
                             
                         {% else %}
