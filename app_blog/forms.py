@@ -17,16 +17,23 @@ class BlogForm(forms.ModelForm):
         model = Blog
         fields = ('title', 'subtitle', 'description', 'image')
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title...', 'required': True}),
-            'subtitle': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Subtitle...'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Description...'}),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title', 'required': True}),
+            'subtitle': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Subtitle'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Description'}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         }
 
 class BlogUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = BlogUser
-        fields = ('username', 'password1', 'password2', 'email', 'display_name')
+        fields = ('display_name', 'username', 'email', 'password1', 'password2')
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username', 'required': True}),
+            'display_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'display_name', 'required': True}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'email', 'required': True}),
+            'password1': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'password', 'required': True}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'password', 'required': True}),
+        }
 
 class BlogUserUpdateForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):

@@ -8,7 +8,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 class BlogUserSignUp(CreateView):
     form_class = BlogUserCreationForm
     template_name = 'registration/signup.html'
-    next_page = reverse_lazy('home')
+    success_url = reverse_lazy('home')
 
 class BlogUserLogin(LoginView):
     next_page = reverse_lazy('home')

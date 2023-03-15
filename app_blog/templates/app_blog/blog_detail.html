@@ -3,6 +3,13 @@
 
 {% block title %}{{ blog.title}}{% endblock %}
 {% block nav-color %}{% endblock %}
+{% block nav-items %}
+    {% if request.user == blog.author %}
+    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="#">+ Post</a></li>
+    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'blog-update' blog.id %}">Update</a></li>
+    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-danger" href="#">Delete</a></li>
+    {%endif%}
+{% endblock %}
 {% block header %}
     <header class="masthead" style="background-image: url('{% if blog.image %}{{ blog.image.url }}{% else %}/static/app_blog/assets/default_blog_image.jpg{% endif %}')">
         <div class="container position-relative px-4 px-lg-5">
@@ -44,17 +51,4 @@
         <!-- Divider-->
         <hr class="my-4" />
     {% endif %}
-    <!-- Pager-->
-    {% if request.user == blog.author %}
-        <div class="d-flex justify-content-center mb-4">
-            <div class="row ">
-                <div class="col">
-                    <a class="btn btn-primary text-uppercase" href="{% url 'blog-update' blog.id %}">
-                        Update</a>
-                    <a class="btn btn-danger text-uppercase" href="#!">
-                        Delete</a>
-                </div>
-            </div>
-        </div>
-    {%endif%}
 {% endblock %}

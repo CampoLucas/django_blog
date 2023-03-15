@@ -31,6 +31,8 @@
             <div class="container px-4 px-lg-5">
                 <ul class="navbar-nav ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'user-detail' request.user.id %}">{{ request.user.username }}</a></li>
+                    {% block nav-items%} 
+                    {%endblock%}
                 </ul>
                      
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
