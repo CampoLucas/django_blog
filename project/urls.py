@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app_blog.views import ( BlogUserLogin, BlogUserSignUp, BlogUserLogOut, BlogUserDetail, BlogUserUpdate, BlogUserDelete, BlogDetail, BlogCreate, BlogUpdate, BlogDelete, 
-    PostDetail, PostCreate, PostUpdate, PostDelete, HomeList, MessageDetail, MessageCreate, MessageDelete, MessageList )
+    PostDetail, PostCreate, PostUpdate, PostDelete, HomeList, MessageDetail, MessageCreate, MessageDelete, MessageList, PostSearch )
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('blog/add', BlogCreate.as_view(), name='blog-add'),
     path('admin/', admin.site.urls),
     path('', HomeList.as_view(), name='home'),
     path('login', BlogUserLogin.as_view(), name='login'),
@@ -30,11 +31,11 @@ urlpatterns = [
     path('user/<pk>/update', BlogUserUpdate.as_view(), name='user-update'),
     path('user/<pk>/delete', BlogUserDelete.as_view(), name='user-delete'),
     path('blog/<pk>', BlogDetail.as_view(), name='blog-detail'),
-    path('blog/<pk>/add', BlogCreate.as_view(), name='blog-add'),
     path('blog/<pk>/update', BlogUpdate.as_view(), name='blog-update'),
     path('blog/<pk>/delete', BlogDelete.as_view(), name='blog-delete'),
+    path('blog/<pk>/add-post', PostCreate.as_view(), name='blog-add-post'),
+    path('post/search', PostSearch.as_view(), name='post-search'),
     path('post/<pk>', PostDetail.as_view(), name='post-detail'),
-    path('post/<pk>/add', PostCreate.as_view(), name='post-add'),
     path('post/<pk>/update', PostUpdate.as_view(), name='post-update'),
     path('post/<pk>/delete', PostDelete.as_view(), name='post-delete'),
 

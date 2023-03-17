@@ -15,6 +15,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'app_blog/css/styles.css' %}" rel="stylesheet" />
 
+        {% block style %}
         <style>
             main {
                 margin-top: 100px;
@@ -24,15 +25,16 @@
                 margin-top: 75px;
             }
         </style>
+        {% endblock %}
+
     </head>
     <body>
         <!-- Navigation-->
+        {% block nav %}
         <nav class="navbar navbar-expand-lg navbar-light fixed-top {%block nav-color%}{%endblock%}" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <ul class="navbar-nav ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'user-detail' request.user.id %}">{{ request.user.username }}</a></li>
-                    {% block nav-items%} 
-                    {%endblock%}
                 </ul>
                      
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,18 +51,31 @@
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'login' %}">Login</a></li>
                         {% endif %}
                         
+                        
                     </ul>
                 </div>
+                <form action="{% url 'post-search' %}" class="nav-item input-group rounded px-lg-3 py-3 w-25 h-25 ">
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="criteria"/>
+                    <button class="btn btn-outline-light rounded btn-sm" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
             </div>
         </nav>
-        
+        {% endblock %}
+
         <!-- Page Header -->
         {% block header %}
+        {% endblock %}
+
+        {% block sidebar %}
         {% endblock %}
 
         <!-- Page Main -->
         {% block main %}
         <main>
+            
+
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">

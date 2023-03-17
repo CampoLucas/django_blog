@@ -8,7 +8,7 @@ class PostForm(forms.ModelForm):
         fields = ('title', 'body')
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title...', 'required': True}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Feel free to write anything...', 'required': True}),
+            'body': forms.Textarea(attrs={'class': 'form-control', 'rows': 10, 'placeholder': 'Feel free to write anything...', 'required': True}),
             
         }
 

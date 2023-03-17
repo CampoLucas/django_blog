@@ -1,0 +1,12 @@
+{% extends "app_blog/base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+{%block nav-color%}bg-black{%endblock%}
+{% block container %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary btn-sm" value="Save">
+    </form>
+{% endblock %}

@@ -3,13 +3,19 @@
 
 {% block title %}{{ blog.title}}{% endblock %}
 {% block nav-color %}{% endblock %}
-{% block nav-items %}
-    {% if request.user == blog.author %}
-    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="#">+ Post</a></li>
-    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'blog-update' blog.id %}">Update</a></li>
-    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-danger" href="#">Delete</a></li>
-    {%endif%}
-{% endblock %}
+
+{% block style %}
+    {{ block.super }}
+    <style>
+        main,
+        header,
+        footer,
+        nav {
+            margin-left: 300px;
+        }
+    </style>
+{%endblock%}
+
 {% block header %}
     <header class="masthead" style="background-image: url('{% if blog.image %}{{ blog.image.url }}{% else %}/static/app_blog/assets/default_blog_image.jpg{% endif %}')">
         <div class="container position-relative px-4 px-lg-5">
@@ -26,9 +32,45 @@
     </header>
 {% endblock %}
 
+{%block sidebar %}
+<div class="position-fixed top-0 start-0 bottom-0 col-sm-2 bg-dark">
+    <ul class="nav flex-column text-center mt-5">
+        <div>
+            <!--This part is at the top-->
+            <li class="nav-item container mt-5">
+                <img class="rounded-pill w-50 mt-5" src="{% if blog.author.profile_picture %} {{blog.author.profile_picture.url}} {% else %} {% static 'app_blog/assets/default_profile_picture.jpg' %} {% endif %}" alt="">
+            </li>
+            <li class="nav-item mt-4">
+                <a class="nav-link text-light" href="{% url 'user-detail' blog.author.id %}">{{ blog.author.display_name }}</a>
+            </li>
+        </div>
+        
+    </ul>
+
+    <ul class="flex-grow-1 d-flex flex-column text-left justify-content-end position-absolute bottom-0">
+        
+        {% if request.user.is_authenticated %}
+        <li class="nav-item container mt-auto">
+            <a class="nav-link text-light" href="{% url 'blog-add-post' blog.id %}">+ Post</a>
+        </li>
+        <li class="nav-item container mt-auto">
+            <a class="nav-link text-light" href="{% url 'blog-update' blog.id %}">Update</a>
+        </li>
+        <li class="nav-item container mt-auto">
+            <a class="nav-link text-danger" href="{% url 'blog-delete' blog.id %}">Delete</a>
+        </li>
+        {%endif%}
+        <li class="nav-item container mt-auto">
+            <p class="text-light">{{blog.date_created}}</p>
+        </li>
+        
+    </ul>
+</div>
+{%endblock%}
+
 {% block container %}
     {% if blog.related_posts.all %}
-        {% for post in blog.related_posts.all %}
+        {% for post in related_posts %}
             <!-- Post preview-->
             <div class="post-preview">
                 <a href="{% url 'post-detail' post.id %}">
