@@ -1,0 +1,63 @@
+{% extends "app_blog/blog_detail.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} Post{% endblock %}
+
+{% block header %}
+    <header class="masthead" style="background-image: url('{% if post.blog.image %}{{ post.blog.image.url }}{% else %}/static/app_blog/assets/default_blog_image.jpg{% endif %}')">
+        
+    </header>
+{% endblock %}
+
+{%block sidebar %}
+<div class="position-fixed top-0 start-0 bottom-0 col-sm-2 bg-dark">
+    <ul class="nav flex-column text-center mt-5">
+        <div>
+            <!--This part is at the top-->
+            <li class="nav-item container mt-5">
+                <img class="rounded-pill w-50 mt-5" src="{% if post.blog.author.profile_picture %} {{post.blog.author.profile_picture.url}} {% else %} {% static 'assets/default_profile_picture.jpg' %} {% endif %}" alt="">
+            </li>
+            <li class="nav-item mt-4">
+                <a class="nav-link text-light" href="{% url 'user-detail' post.blog.author.id %}">{{ post.blog.author.display_name }}</a>
+            </li>
+        </div>
+        
+    </ul>
+
+    <ul class="flex-grow-1 d-flex flex-column text-left justify-content-end position-absolute bottom-0">
+        
+        {% if request.user.is_authenticated %}
+        <li class="nav-item container mt-auto">
+            <a class="nav-link text-light" href="{% url 'post-update' post.id %}">Update</a>
+        </li>
+        <li class="nav-item container mt-auto">
+            <a class="nav-link text-danger" href="{% url 'post-delete' post.id %}">Delete</a>
+        </li>
+        {%endif%}
+        <li class="nav-item container mt-auto">
+            <p class="text-light">{{post.date_posted}}</p>
+        </li>
+        
+    </ul>
+</div>
+{%endblock%}
+
+{% block container %}
+    <div>
+        <a class="h5" href="{% url 'blog-detail' post.blog.id %}">{{ post.blog.title }}</a>
+    </div>
+    <h1>{{ post.title }}</h1>
+    <div>
+        <p class="text-justify text-break" style="display: block;">{{ post.body }}</p>
+    </div>
+
+    <hr>
+    <div class="post-preview">
+        <p class="post-meta">
+            Posted by
+            <a href="{% url 'user-detail' post.blog.author.id %}">{{ post.blog.author.display_name }}</a>
+            on {{ post.date_posted }}
+        </p>
+    </div>
+    
+{% endblock %}

@@ -8,10 +8,7 @@ class BlogUser(AbstractUser):
     display_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', default='app_blog/assets/default_profile_picture.jpg', blank=True)
-    bio = models.TextField(max_length=300, blank=True)
-    url = models.SlugField(max_length=200, unique=True, editable=False)
-    phone_number = models.CharField(max_length=20, blank=True)
-    birthday = models.DateField(default=datetime.date.today)
+    bio = models.TextField(max_length=300, blank=True, null=True)
 
     groups = models.ManyToManyField(
         Group,
@@ -36,46 +33,30 @@ class BlogUser(AbstractUser):
 
     def __str__(self):
         return f"{self.id:02}. {self.username.lower()}"
-    
-    def save(self, *args, **kwargs):
-        self.url = slugify(self.username.lower())
-        self.username = self.username.lower()
-        super().save(*args, **kwargs)
 
 class Blog(models.Model):
     title = models.CharField(max_length=100)
-    subtitle = models.CharField(max_length=100, blank=True)
-    description = models.TextField(max_length=600, blank=True)
+    subtitle = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(max_length=600, blank=True, null=True)
     author = models.ForeignKey(BlogUser, on_delete=models.CASCADE, related_name='related_blogs')
     date_created = models.DateTimeField(auto_now_add=True)
-    url = models.SlugField(max_length=200, unique=True, editable=False)
-    image = models.ImageField(upload_to='blog_pictures/', blank=True, default='app_blog/assets/default_blog_image.jpg')
+    image = models.ImageField(upload_to='blog_pictures/', null=True, blank=True, default='app_blog/assets/default_blog_image.jpg')
 
     def __str__(self):
         return f"{self.id:04}. {self.title} ({self.related_posts.count()} posts)"
-    
-    def save(self, *args, **kwargs):
-        self.url = slugify(self.title)
-        super().save(*args, **kwargs)
 
 class Post(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='related_posts')
     title = models.CharField(max_length=100)
     body = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
-    url = models.SlugField(max_length=200, unique=True, editable=False)
-
-    STATE_CHOICES = (
-        (True, 'Published'),
-        (False, 'Draft'),
-    )
-    state = models.BooleanField(choices=STATE_CHOICES, default=False)
     
     def __str__(self):
-        state_str = 'Published' if self.state else 'Draft'
-        return f"{self.id:03}. {self.title} (Blog: {self.blog.title}) ({state_str})"
+        return f"{self.id:03}. {self.title} (Blog: {self.blog.title})"
     
-    def save(self, *args, **kwargs):
-        self.url = f"post_{self.id}_{slugify(self.title)}"
-        super().save(*args, **kwargs)
+class Message(models.Model):
+    email = models.EmailField()
+    name = models.CharField(max_length=100)
+    text = models.TextField(max_length=3000)
+    date = models.DateField(auto_now_add=True)
 

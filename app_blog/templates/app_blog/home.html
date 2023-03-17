@@ -1,21 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    {% load static %}
-	<title>My Blog - Home</title>
-</head>
-<body>
-	<h1>Latest Posts</h1>
-	<ul>
-		{% for post in posts %}
-		<div>
-			<h2><a href="{% url 'post_detail' post.blog.url post.url %}">{{ post.title }}</a></h2>
-            <h4><a href="{% url 'blog_detail' post.blog.url %}">{{ post.blog.title }}</a></h1>
-			<p>{{ post.body|slice:":300" }}{% if post.body|length > 200 %}...{% endif %}</p>
-			<p>Published on {{ post.date_posted }}</p>
-            <hr>
-        </div>
-		{% endfor %}
-	</ul>
-</body>
-</html>
+{% extends "app_blog/base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block header %}
+    <header class="container-fluid bg-secondary d-flex align-items-center" style="height: 20vw;">
+        <div class="row w-100">
+            <div class="col-12 d-flex justify-content-center">
+              <h1 class="text-white text-center">Welcome to the blog!</h1>
+            </div>
+          </div>
+    </header>
+{% endblock %}
+
+{% block container %}
+    <h1>Latest Posts</h1>
+    <hr class="my-4" />
+    {% if posts %}
+        {% for post in posts %}
+            <!-- Post preview-->
+            <div class="post-preview">
+                <a href="{% url 'post-detail' post.id %}">
+                    <h2 class="post-title">{{ post.title }}</h2>
+                    <h3 class="post-subtitle">{{ post.body|slice:":100" }}{% if post.body|length > 200 %}...{% endif %}</h3>
+                </a>
+                <p class="post-meta">
+                    Posted by
+                    <a href="{% url 'user-detail' post.blog.author.id %}">{{ post.blog.author.display_name }}</a>
+                    on {{ post.date_posted }}
+                </p>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+        {% endfor %}
+    {% else %}
+    <div class="post-preview">
+        <p class="post-meta">No posts yet.</p>
+    </div>
+    <!-- Divider-->
+    <hr class="my-4" />
+{% endif %}
+{% endblock %}
