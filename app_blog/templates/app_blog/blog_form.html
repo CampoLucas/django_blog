@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}Add Blog{% endblock %}
-
+{%block nav-color%}bg-black{%endblock%}
 {% block container %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}

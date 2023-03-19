@@ -15,21 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app_blog.views import ( BlogUserLogin, BlogUserSignUp, BlogUserLogOut, BlogUserDetail, BlogUserUpdate, BlogUserDelete, BlogDetail, BlogCreate, BlogUpdate, BlogDelete, 
+from app_blog.views import ( UserLogin, UserSignUp, UserLogOut, UserDetail, UserUpdate, UserDelete, BlogDetail, UserBlogCreate, BlogUpdate, BlogDelete, 
     PostDetail, PostCreate, PostUpdate, PostDelete, HomeList, MessageDetail, MessageCreate, MessageDelete, MessageList, PostSearch )
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('blog/add', BlogCreate.as_view(), name='blog-add'),
     path('admin/', admin.site.urls),
     path('', HomeList.as_view(), name='home'),
-    path('login', BlogUserLogin.as_view(), name='login'),
-    path('register', BlogUserSignUp.as_view(), name='register'),
-    path('logout', BlogUserLogOut.as_view(), name='logout'),
-    path('user/<pk>', BlogUserDetail.as_view(), name='user-detail'),
-    path('user/<pk>/update', BlogUserUpdate.as_view(), name='user-update'),
-    path('user/<pk>/delete', BlogUserDelete.as_view(), name='user-delete'),
+    path('login', UserLogin.as_view(), name='login'),
+    path('register', UserSignUp.as_view(), name='register'),
+    path('logout', UserLogOut.as_view(), name='logout'),
+    path('user/<pk>', UserDetail.as_view(), name='user-detail'),
+    path('user/<pk>/update', UserUpdate.as_view(), name='user-update'),
+    path('user/<pk>/delete', UserDelete.as_view(), name='user-delete'),
+    path('user/<pk>/add-blog', UserBlogCreate.as_view(), name='user-add-blog'),
     path('blog/<pk>', BlogDetail.as_view(), name='blog-detail'),
     path('blog/<pk>/update', BlogUpdate.as_view(), name='blog-update'),
     path('blog/<pk>/delete', BlogDelete.as_view(), name='blog-delete'),

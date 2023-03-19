@@ -18,7 +18,7 @@
                 <img class="profile-picture" src="{% if post.blog.author.avatar.profile_picture %} {{post.blog.author.avatar.profile_picture.url}} {% else %} {% static 'app_blog/assets/default_profile_picture.jpg' %} {% endif %}" alt="">
             </li>
             <li class="nav-item mt-4">
-                <a class="nav-link text-light" href="{% url 'user-detail' post.blog.author.id %}">{{ post.blog.author.avatar.display_name }}</a>
+                <a class="nav-link text-light" href="{% url 'user-detail' post.blog.author.id %}">{%if post.blog.author.avatar.display_name%}{{ post.blog.author.avatar.display_name }}{%else%}{{post.blog.author.username}}{%endif%}</a>
             </li>
         </div>
         
@@ -26,7 +26,7 @@
 
     <ul class="flex-grow-1 d-flex flex-column text-left justify-content-end position-absolute bottom-0">
         
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and request.user.id == post.blog.author.id or request.user.is_staff %}
         <li class="nav-item container mt-auto">
             <a class="nav-link text-light" href="{% url 'post-update' post.id %}">Update</a>
         </li>
@@ -51,13 +51,6 @@
         <p class="text-justify text-break" style="display: block;">{{ post.body }}</p>
     </div>
 
-    <hr>
-    <div class="post-preview">
-        <p class="post-meta">
-            Posted by
-            <a href="{% url 'user-detail' post.blog.author.id %}">{{ post.blog.author.display_name }}</a>
-            on {{ post.date_posted }}
-        </p>
-    </div>
+    
     
 {% endblock %}
