@@ -37,11 +37,11 @@
     <ul class="nav flex-column text-center mt-5">
         <div>
             <!--This part is at the top-->
-            <li class="nav-item container mt-5">
-                <img class="rounded-pill w-50 mt-5" src="{% if blog.author.profile_picture %} {{blog.author.profile_picture.url}} {% else %} {% static 'app_blog/assets/default_profile_picture.jpg' %} {% endif %}" alt="">
+            <li class="nav-item container mt-5 profile-picture-container">
+                <img class="profile-picture" src="{% if blog.author.avatar.profile_picture %} {{blog.author.avatar.profile_picture.url}} {% else %} {% static 'app_blog/assets/default_profile_picture.jpg' %} {% endif %}" alt="">
             </li>
             <li class="nav-item mt-4">
-                <a class="nav-link text-light" href="{% url 'user-detail' blog.author.id %}">{{ blog.author.display_name }}</a>
+                <a class="nav-link text-light" href="{% url 'user-detail' blog.author.id %}">{%if blog.author.avatar.display_name%}{{ blog.author.avatar.display_name }}{%else%}{{blog.author.username}}{%endif%}</a>
             </li>
         </div>
         
@@ -49,7 +49,7 @@
 
     <ul class="flex-grow-1 d-flex flex-column text-left justify-content-end position-absolute bottom-0">
         
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and request.user.id == blog.author.id or request.user.is_staff %}
         <li class="nav-item container mt-auto">
             <a class="nav-link text-light" href="{% url 'blog-add-post' blog.id %}">+ Post</a>
         </li>
@@ -78,9 +78,7 @@
                     <h3 class="post-subtitle">{{ post.body|slice:":100" }}{% if post.body|length > 200 %}...{% endif %}</h3>
                 </a>
                 <p class="post-meta">
-                    Posted by
-                    <a href="{% url 'user-detail' blog.author.id %}">{{ post.blog.author.display_name }}</a>
-                    on {{ post.date_posted }}
+                    {{ post.date_posted }}
                 </p>
             </div>
             <!-- Divider-->

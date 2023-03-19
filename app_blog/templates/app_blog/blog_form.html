@@ -2,20 +2,12 @@
 {% load static %}
 
 {% block title %}Add Blog{% endblock %}
-
-{% block main %}
-    <main>
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{form.as_p}}
-                        {{from.media}}
-                        <input type="submit" value="Finish">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </main>
+{%block nav-color%}bg-black{%endblock%}
+{% block container %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        {{from.media}}
+        <input type="submit" value="Finish">
+    </form>
 {% endblock %}
