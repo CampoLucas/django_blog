@@ -37,11 +37,11 @@
     <ul class="nav flex-column text-center mt-5">
         <div>
             <!--This part is at the top-->
-            <li class="nav-item container mt-5">
-                <img class="rounded-pill w-50 mt-5" src="{% if blog.author.profile_picture %} {{blog.author.profile_picture.url}} {% else %} {% static 'app_blog/assets/default_profile_picture.jpg' %} {% endif %}" alt="">
+            <li class="nav-item container mt-5 profile-picture-container">
+                <img class="profile-picture" src="{% if blog.author.avatar.profile_picture %} {{blog.author.avatar.profile_picture.url}} {% else %} {% static 'app_blog/assets/default_profile_picture.jpg' %} {% endif %}" alt="">
             </li>
             <li class="nav-item mt-4">
-                <a class="nav-link text-light" href="{% url 'user-detail' blog.author.id %}">{{ blog.author.display_name }}</a>
+                <a class="nav-link text-light" href="{% url 'user-detail' blog.author.id %}">{{ blog.author.avatar.display_name }}</a>
             </li>
         </div>
         

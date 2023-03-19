@@ -4,9 +4,10 @@
 {% block title %}Home{% endblock %}
 {%block nav-color%}bg-black{%endblock%}
 {% block container %}
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
+        {{from.media}}
         <input type="submit" class="btn btn-primary btn-sm" value="Save">
     </form>
 {% endblock %}

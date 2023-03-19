@@ -1,0 +1,60 @@
+{% extends "app_blog/base.html" %}
+{% load static %}
+
+{% block title %}{{ user.username }} Profile{% endblock %}
+
+{% block nav-items %}
+    {% if request.user == user %}
+    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="#">+ Blog</a></li>
+    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'user-update' request.user.id %}">Update</a></li>
+    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-danger" href="#">Delete</a></li>
+    {%endif%}
+{% endblock %}
+
+{%block nav-color%}bg-black{%endblock%}
+
+{% block main %}
+	<main>
+		<div class="container px-4 px-lg-5">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1>{{ user.avatar.display_name }}</h1>
+                <a href="{% url 'user-update' user.id %}" class="btn btn-primary btn-sm">Edit profile</a>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="text-center">
+                            <div class="container-lg mt-5 profile-picture-container" style="width: 300px; height: 300px;">
+                                <img class="profile-picture" src="{% if user.avatar.profile_picture %}{{ user.avatar.profile_picture.url }}{% else %}{% static 'app_blog/assets/default_profile_picture.jpg' %}{% endif %}" alt="Profile picture">
+                            </div>
+                        </div>
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">Contact me</h5>
+                            <p class="card-text">{{ user.email }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Joined in:</strong> {{ user.date_joined|date:"F j, Y" }}</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-8">
+                    <h1>Blogs {% if request.user.is_authenticated %}<a class="btn btn-outline-primary btn-sm rounded ml-3" href="{% url 'blog-add' %}">+ Blog</a>{% endif %}</h1>
+                    
+                    {% if user.related_blogs.all %}
+                        {% for blog in user.related_blogs.all %}
+                            <div class="mb-3">
+                                <a href="{% url 'blog-detail' blog.id %}" style="text-decoration:none;">{{ blog.title }}</a>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>There are no blogs yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+	</main>
+{% endblock %}
+

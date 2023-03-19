@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from app_blog.models import BlogUser, Blog, Post
+from app_blog.models import Blog, Post
 from app_blog.forms import BlogForm, PostForm, BlogUserCreationForm, BlogUserUpdateForm, BlogUserLoginForm
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.admin import User
 from django.http import HttpResponseForbidden
 
 class BlogUserSignUp(CreateView):
@@ -20,18 +21,26 @@ class BlogUserLogOut(LogoutView):
     next_page = reverse_lazy('home')
 
 class BlogUserDetail(DetailView):
-    model = BlogUser
+    model = User
     context_object_name = 'user'
 
 class BlogUserUpdate(LoginRequiredMixin, UpdateView):
-    model = BlogUser
+    model = User
     form_class = BlogUserUpdateForm
 
     def get_success_url(self):
         return reverse_lazy('user-detail', kwargs={'pk': self.object.pk})
+    
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form_kwargs(self):
+        kwargs = super(BlogUserUpdate, self).get_form_kwargs()
+        kwargs['instance'] = self.request.user
+        return kwargs
 
 class BlogUserDelete(LoginRequiredMixin, DeleteView):
-    model = BlogUser
+    model = User
     success_url = reverse_lazy('home')
     
 class BlogDetail(DetailView):
