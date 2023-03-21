@@ -23,25 +23,12 @@
         </ul>
     </div>
     <ul>
-        <li>Registrarse.</li>
-        <li>Logearse.</li>
-        <li>Deslogearse.</li>
-        <li>Editar el perfil del usuario.</li>
-        <li>Borrar usuarios.</li>
-        <li>Visitar perfiles.</li>
-        <li>Visitar blogs.</li>
-        <li>Visitar plogs.</li>
-        <li>Home page.</li>
-        <li>Agregar nuevos blogs.</li>
-        <li>Editar blogs.</li>
-        <li>Borrar blogs.</li>
-        <li>Agregar nuevos Posts.</li>
-        <li>Editar posts.</li>
-        <li>Borrar posts.</li>
-        <li>Enviar mensajes.</li>
-        <li>Ver mensajes.</li>
-        <li>Borrar mensajes.</li>
-        <li>Buscar posts.</li>
+        <li><strong>Usuarios</strong>: Registrarse, logearse, editar perfiles, borrar perfiles, ver perfiles.</li>
+        <li><strong>Blogs</strong>: Crear blogs, editar blogs, borrar blogs, visitar blogs.</li>
+        <li><strong>Posts</strong>: Crear posts, editar posts, borrar posts, visitar posts.</li>
+        <li><strong>Mensajes</strong>: Enviar mensajes, ver mensajes, borrar mensajes.</li>
+        <li><strong>Barra de busqueda</strong>: Solo para buscar blogs.</li>
+        <li><strong>Home page</strong>: Pagina donde se muestran los ultimos blogs.</li>
     </ul>
 </div>
 
