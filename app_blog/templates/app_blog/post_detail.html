@@ -10,47 +10,47 @@
 {% endblock %}
 
 {%block sidebar %}
-<div class="position-fixed top-0 start-0 bottom-0 col-sm-2 bg-dark">
-    <ul class="nav flex-column text-center mt-5">
-        <div>
+    <ul class="nav flex-column text-center mt-5 mb-sm-auto">
+        <div class="text-center">
             <!--This part is at the top-->
-            <li class="nav-item container mt-5 profile-picture-container">
-                <img class="profile-picture" src="{% if post.blog.author.avatar.profile_picture %} {{post.blog.author.avatar.profile_picture.url}} {% else %} {% static 'app_blog/assets/default_profile_picture.jpg' %} {% endif %}" alt="">
+            <li class="nav-item mt-5">
+                <a class="d-flex justify-content-center text-center">
+                    <div class="ratio ratio-1x1 bg-image img-thumbnail rounded-pill w-50" 
+                    style="background-image: url('{% if post.blog.author.avatar.profile_picture %}{{ post.blog.author.avatar.profile_picture.url }}{% else %}/static/app_blog/assets/default_profile_picture.jpg{% endif %}'); 
+                    background-position: center; background-size: contain;"></div>
+                </a>
             </li>
-            <li class="nav-item mt-4">
+            <li class="nav-item">
                 <a class="nav-link text-light" href="{% url 'user-detail' post.blog.author.id %}">{%if post.blog.author.avatar.display_name%}{{ post.blog.author.avatar.display_name }}{%else%}{{post.blog.author.username}}{%endif%}</a>
             </li>
         </div>
         
     </ul>
 
-    <ul class="flex-grow-1 d-flex flex-column text-left justify-content-end position-absolute bottom-0">
+    <hr>
+    <div class="dropdown pb-4 ">
         
-        {% if request.user.is_authenticated and request.user.id == post.blog.author.id or request.user.is_staff %}
-        <li class="nav-item container mt-auto">
-            <a class="nav-link text-light" href="{% url 'post-update' post.id %}">Update</a>
-        </li>
-        <li class="nav-item container mt-auto">
-            <a class="nav-link text-danger" href="{% url 'post-delete' post.id %}">Delete</a>
-        </li>
+        {% if request.user.is_authenticated and request.user.id == post.blog.author.id %}
+        <a href="#options" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline dropdown-toggle text-light">Options</span> </a>
+        
+        <ul class="collapse show nav flex-column ms-1" id="options" data-bs-parent="#menu">
+            <hr>
+            <li class="w-100"><a href="{% url 'post-update' post.id %}" class="nav-link px-0 text-primary"> <span class="d-none d-sm-inline">Update Post</span></a></li>
+            <li class="w-100"><a href="{% url 'post-delete' post.id %}" class="nav-link px-0 text-danger"> <span class="d-none d-sm-inline text-link-danger">Delete Post</span></a></li>
+        </ul>
+        <hr>
         {%endif%}
-        <li class="nav-item container mt-auto">
-            <p class="text-light">{{post.date_posted}}</p>
-        </li>
-        
-    </ul>
-</div>
+        <p class="text-light">{{post.date_posted}}</p>
+    </div>
 {%endblock%}
 
 {% block container %}
     <div>
-        <a class="h5" href="{% url 'blog-detail' post.blog.id %}">{{ post.blog.title }}</a>
+        <a class="h5" href="{% url 'blog-detail' post.blog.id %}"><i class="fa-solid fa-arrow-left"></i> {{ post.blog.title }}</a>
     </div>
     <h1>{{ post.title }}</h1>
     <div>
-        <p class="text-justify text-break" style="display: block;">{{ post.body }}</p>
-    </div>
-
-    
-    
+        <p class="text-justify text-break" style="display: block;">{{ post.body|linebreaksbr }}</p>
+    </div>    
 {% endblock %}

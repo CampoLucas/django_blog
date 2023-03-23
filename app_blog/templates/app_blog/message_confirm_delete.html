@@ -1,0 +1,17 @@
+{% extends "app_blog/base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+{%block nav-color%}bg-black{%endblock%}
+{% block container %}
+    <div>
+        <p>Are you sure you want to delete this message?</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        {{form}}
+        <input class="btn btn-danger" type="submit" value="Delete">
+        <a class="btn btn-primary" href="{% url 'message-list'%}">Cancel</a>
+    </form>
+{% endblock %}
