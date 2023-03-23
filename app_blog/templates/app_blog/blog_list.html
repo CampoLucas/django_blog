@@ -1,7 +1,7 @@
 {% extends "app_blog/base.html" %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Blogs{% endblock %}
 
 {% block header %}
     <header class="container-fluid bg-secondary d-flex align-items-center" style="height: 20vw;">
@@ -14,21 +14,20 @@
 {% endblock %}
 
 {% block container %}
-    <a class="h5" href="{%url 'blog-list'%}">Blogs</a>
-    <h1>Latest Posts</h1>
+    <h1>Latest Blogs</h1>
     <hr class="my-4" />
-    {% if posts %}
-        {% for post in posts %}
+    {% if blogs %}
+        {% for blog in blogs %}
             <!-- Post preview-->
             <div class="post-preview">
-                <a href="{% url 'post-detail' post.id %}">
-                    <h2 class="post-title">{{ post.title }}</h2>
-                    <h3 class="post-subtitle">{{ post.body|slice:":100"|linebreaksbr}}{% if post.body|length > 200 %}...{% endif %}</h3>
+                <a href="{% url 'blog-detail' blog.id %}">
+                    <h2 class="post-title">{{ blog.title }}</h2>
+                    <h2 class="post-subtitle">{{ blog.subtitle }}</h2>
                 </a>
                 <p class="post-meta">
                     Posted by
-                    <a href="{% url 'user-detail' post.blog.author.id %}">{%if post.blog.author.avatar.display_name%}{{ post.blog.author.avatar.display_name }}{%else%}{{post.blog.author.username}}{%endif%}</a>
-                    on {{ post.date_posted }}
+                    <a href="{% url 'user-detail' blog.author.id %}">{{ post.blog.author.avatar.display_name }}</a>
+                    on {{ blog.date_created }}
                 </p>
             </div>
             <!-- Divider-->
@@ -36,7 +35,7 @@
         {% endfor %}
     {% else %}
     <div class="post-preview">
-        <p class="post-meta">No posts yet.</p>
+        <p class="post-meta">No blogs yet.</p>
     </div>
     <!-- Divider-->
     <hr class="my-4" />

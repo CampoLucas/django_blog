@@ -1,0 +1,42 @@
+{% extends "app_blog/base.html" %}
+{% load static %}
+
+{% block title %}{{ user.username }} Profile{% endblock %}
+
+{%block nav-color%}bg-black{%endblock%}
+
+{% block main %}
+	<main>
+		<div class="container px-4 px-lg-5">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1>Lucas Campo</h1>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="ratio ratio-1x1 bg-image img-thumbnail" style="background-image: url('/static/app_blog/assets/lucas_campo.jpg'); background-position: center; background-size: contain;"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Contacto</h5>
+                            <p class="card-text">+54 11 2740-3576</p>
+                            <p class="card-text">campolucas2001@gmail.com</p>
+                        </div>
+                        <hr>
+                        <div class="card-body">
+                            <h5 class="card-title">Links</h5>
+                            <p class="card-text"><a href="https://campolucas.github.io/">Portfolio</a></p>
+                            <p class="card-text"><a href="https://github.com/CampoLucas">Github</a></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-8">
+                    <h1>Ascerca de mi</h1>
+                    <p>Soy un desarrollador de juegos dedicado con un enfoque en la programación. Llevo tres años estudiando desarrollo de juegos y he perfeccionado mis habilidades en C# y Unity, así como en C++. Estoy en constante búsqueda de mejorar y aprender nuevas tecnologías.</br></br>
+                        Mi experiencia en programación se combina con una base sólida en arte y diseño de juegos. Si bien mi enfoque principal es la programación, también tengo experiencia con herramientas como Blender, Adobe Illustrator y Adobe Photoshop. Estas habilidades me permiten aportar un enfoque completo al desarrollo de juegos, y entiendo la importancia de la apariencia de un juego.</br></br>
+                        Si está buscando un programador que sea trabajador, responsable y motivado para dar vida a juegos de alta calidad, no busque más.</p>
+                </div>
+            </div>
+        </div>
+	</main>
+{% endblock %}

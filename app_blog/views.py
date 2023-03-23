@@ -1,12 +1,15 @@
 from django.shortcuts import render, get_object_or_404
-from app_blog.models import Blog, Post
-from app_blog.forms import BlogForm, PostForm, BlogUserCreationForm, BlogUserUpdateForm, BlogUserLoginForm
+from app_blog.models import Blog, Post, Message
+from app_blog.forms import BlogForm, PostForm, BlogUserCreationForm, BlogUserUpdateForm, BlogUserLoginForm, MessageForm
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.admin import User
 from django.http import HttpResponseForbidden, Http404
+
+def about(request):
+    return render(request, 'app_blog/about.html')
 
 class DispatchPermissions(UserPassesTestMixin):
     def dispatch(self, request, *args, **kwargs):
@@ -16,24 +19,18 @@ class DispatchPermissions(UserPassesTestMixin):
 
 class UserPermissions(DispatchPermissions):
     def test_func(self):
-        if self.request.user.is_staff:
-            return True
         user_id = self.kwargs.get("pk")
-        user = Blog.objects.get(id=user_id)
+        user = User.objects.get(id=user_id)
         return user == self.request.user
 
 class BlogPermissions(DispatchPermissions):
     def test_func(self):
-        if self.request.user.is_staff:
-            return True
         blog_id = self.kwargs.get("pk")
         blog = Blog.objects.get(id=blog_id)
         return blog.author == self.request.user
 
 class PostPermissions(DispatchPermissions):
     def test_func(self):
-        if self.request.user.is_staff:
-            return True
         post = self.get_object()
         return post.blog.author == self.request.user   
 
@@ -98,6 +95,11 @@ class BlogDetail(DetailView):
         related_posts = self.object.related_posts.all().order_by('-date_posted')
         context['related_posts'] = related_posts
         return context
+    
+class BlogList(ListView):
+    model = Blog
+    context_object_name = 'blogs'
+    ordering = ['-date_created']
 
 class BlogUpdate(LoginRequiredMixin, BlogPermissions, UpdateView):
     model = Blog
@@ -160,13 +162,17 @@ class PostSearch(ListView):
         return result
 
 class MessageDetail(LoginRequiredMixin, DetailView):
-    pass
+    model = Message
+    context_object_name = 'message'
 
 class MessageList(LoginRequiredMixin, ListView):
-    pass
+    model = Message
 
-class MessageCreate(LoginRequiredMixin, CreateView):
-    pass
+class MessageCreate(CreateView):
+    model = Message
+    success_url = reverse_lazy("message-list")
+    form_class = MessageForm
 
 class MessageDelete(LoginRequiredMixin, DeleteView):
-    pass
+    model = Message
+    success_url = reverse_lazy("message-list")

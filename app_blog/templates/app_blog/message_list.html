@@ -1,0 +1,30 @@
+{% extends "app_blog/base.html" %}
+{% load static %}
+
+{% block title %}Messages{% endblock %}
+{%block nav-color%}bg-dark{%endblock%}
+
+{% block container %}
+    <h1>Latest Messages</h1>
+    <hr class="my-4" />
+    {% if object_list %}
+        {% for message in object_list %}
+            <div class="post-preview">
+                <p class="post-meta">Email: {{message.email}}</p>
+                <p class="post-meta">Name: {{message.name}}</p>
+                <p class="post-meta">Date: {{message.date}}</p>
+                <a class="btn btn-primary btn-sm" href="{% url 'message-detail' message.id %}">See More</a>
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                    <a class="btn btn-danger btn-sm" href="{% url 'message-delete' message.id %}">delete</a>
+                {%endif%}
+            </div>
+            <hr class="my-4" />
+        {% endfor %}
+    {% else %}
+    <div class="post-preview">
+        <p class="post-meta">No messages yet.</p>
+    </div>
+    <!-- Divider-->
+    <hr class="my-4" />
+{% endif %}
+{% endblock %}

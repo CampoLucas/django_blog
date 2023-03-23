@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app_blog.views import ( UserLogin, UserSignUp, UserLogOut, UserDetail, UserUpdate, UserDelete, BlogDetail, UserBlogCreate, BlogUpdate, BlogDelete, 
-    PostDetail, PostCreate, PostUpdate, PostDelete, HomeList, MessageDetail, MessageCreate, MessageDelete, MessageList, PostSearch )
+from app_blog.views import ( UserLogin, UserSignUp, UserLogOut, UserDetail, UserUpdate, UserDelete, 
+                            BlogDetail, UserBlogCreate, BlogUpdate, BlogDelete, PostDetail, PostCreate, 
+                            PostUpdate, PostDelete, HomeList, MessageDetail, MessageCreate, MessageDelete, 
+                            MessageList, PostSearch, about, BlogList )
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.admin.views.decorators import staff_member_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +33,7 @@ urlpatterns = [
     path('user/<pk>/update', UserUpdate.as_view(), name='user-update'),
     path('user/<pk>/delete', UserDelete.as_view(), name='user-delete'),
     path('user/<pk>/add-blog', UserBlogCreate.as_view(), name='user-add-blog'),
+    path('blog', BlogList.as_view(), name='blog-list'),
     path('blog/<pk>', BlogDetail.as_view(), name='blog-detail'),
     path('blog/<pk>/update', BlogUpdate.as_view(), name='blog-update'),
     path('blog/<pk>/delete', BlogDelete.as_view(), name='blog-delete'),
@@ -38,5 +42,12 @@ urlpatterns = [
     path('post/<pk>', PostDetail.as_view(), name='post-detail'),
     path('post/<pk>/update', PostUpdate.as_view(), name='post-update'),
     path('post/<pk>/delete', PostDelete.as_view(), name='post-delete'),
+    path('message/add', MessageCreate.as_view(), name='message-add'),
+    path('message/<pk>', MessageDetail.as_view(), name='message-detail'),
+    path('message', MessageList.as_view(), name='message-list'),
+    path('message/<pk>/delete', staff_member_required(MessageDelete.as_view()), name='message-delete'),
+    path('about', about, name='about'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

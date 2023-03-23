@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from app_blog.models import Post, Blog, Avatar
+from app_blog.models import Post, Blog, Avatar, Message
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -70,10 +70,13 @@ class BlogUserUpdateForm(UserChangeForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if not hasattr(self.instance, 'avatar'):
+            self.instance.avatar = Avatar.objects.create(user=self.instance)
         if self.instance.avatar:
             self.fields['display_name'].initial = self.instance.avatar.display_name
             self.fields['bio'].initial = self.instance.avatar.bio
             self.fields['profile_picture'].initial = self.instance.avatar.profile_picture
+        
     
     def save(self, commit=True):
         user = super().save(commit=commit)
@@ -87,6 +90,8 @@ class BlogUserUpdateForm(UserChangeForm):
             user.avatar.save()
         return user
 
+        
+
 class BlogUserLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
@@ -96,4 +101,14 @@ class BlogUserLoginForm(AuthenticationForm):
         fields = ['username', 'password']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
+        }
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ('email', 'name', 'text')
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'email', 'required': True}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name', 'required': True}),
+            'text': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'Text': 'bio'}),
         }

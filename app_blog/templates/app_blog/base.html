@@ -7,13 +7,17 @@
         <title>{%block title%}Default{%endblock%}</title>
     
         <link rel="icon" type="image/x-icon" href="{% static 'app_blog/assets/favicon.ico' %}" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        
+        
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'app_blog/css/styles.css' %}" rel="stylesheet" />
+        {% block scripts %}
+        <!-- Font Awesome icons (free version)-->    
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        {% endblock %}
 
         {% block style %}
         <style>
@@ -24,31 +28,49 @@
             footer {
                 margin-top: 75px;
             }
-
-            .profile-picture-container {
-                width: 100px;
-                height: 100px;
-                overflow: hidden;
-                border-radius: 50%;
-            }
-
-            .profile-picture {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
         </style>
         {% endblock %}
 
     </head>
+    
+    {% block body %}
     <body>
         <!-- Navigation-->
         {% block nav %}
         <nav class="navbar navbar-expand-lg navbar-light fixed-top {%block nav-color%}{%endblock%}" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'user-detail' request.user.id %}">{{ request.user.username }}</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li class="dropdown nav-item ">
+                        <a href="" class="nav-link text-light p-0" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="row align-items-center gx-2">
+                                <div class="col-auto">
+                                    <div class="ratio ratio-1x1 bg-image img-thumbnail rounded-pill" style="background-image: url('{% if request.user.avatar.profile_picture %}{{ request.user.avatar.profile_picture.url }}{% else %}/static/app_blog/assets/default_profile_picture.jpg{% endif %}'); background-position: center; background-size: contain; width: 30px;"></div>
+                                </div>
+                                <div class="col dropdown-toggle dropdown-toggle">
+                                    <span class="d-none d-sm-inline">{{ request.user.username }}</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="{% url 'user-detail' request.user.id %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'user-add-blog' request.user.id %}">New Blog</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
+                        </ul>
+                    </li>
+                    {%else%}
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'register' %}">Sign Up</a></li>
+
+                    {%endif%}
                 </ul>
+
+                
+                
                      
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
@@ -57,14 +79,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'home' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="#contact">Contact</a></li>
-                        {% if request.user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'logout' %}">Logout</a></li>
-                        {%else%}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'login' %}">Login</a></li>
-                        {% endif %}
-                        
-                        
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="#contact">Contact</a></li>                       
                     </ul>
                 </div>
                 <form action="{% url 'post-search' %}" class="nav-item input-group rounded px-lg-3 py-3 w-25 h-25 ">
@@ -79,9 +94,6 @@
 
         <!-- Page Header -->
         {% block header %}
-        {% endblock %}
-
-        {% block sidebar %}
         {% endblock %}
 
         <!-- Page Main -->
@@ -104,40 +116,23 @@
         
         <!-- Footer -->
         {% block footer %}
-        <footer class="border-top">
+        <footer class="border-top bg-dark">
             <section id="contact">
                 <div class="container px-4 px-lg-5">
-                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="row gx-4 gx-lg-5 justify-content-left">
                         <div class="col-md-10 col-lg-8 col-xl-7">
-                            <ul class="list-inline text-center">
-                                <li class="list-inline-item">
-                                    <a href="#!">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fas fa-circle fa-stack-2x"></i>
-                                            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#!">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fas fa-circle fa-stack-2x"></i>
-                                            <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#!">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fas fa-circle fa-stack-2x"></i>
-                                            <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
+                            <ul class="list-inline text-left">
+                                
+                                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light mb-4" href="{% url 'about' %}">About Me</a></li>
+                                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light mb-4" href="{% url 'message-add' %}">Create a message</a></li>
+                                {% if request.user.is_authenticated %}
+                                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light mb-4" href="{% url 'message-list' %}">Messages</a></li>
+                                {%endif%}
                             </ul>
-                            <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2022</div>
+                            
                         </div>
                     </div>
+                    
                 </div>
             </section>
         </footer>
@@ -147,4 +142,5 @@
         <!-- Core theme JS-->
         <script src="{% static 'app_blog/js/scripts.js' %}"></script>
     </body>
+    {% endblock %}
 </html>

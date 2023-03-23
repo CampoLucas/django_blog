@@ -1,0 +1,21 @@
+{% extends "app_blog/base.html" %}
+{% load static %}
+
+{% block title %}Messages{% endblock %}
+{%block nav-color%}bg-dark{%endblock%}
+
+{% block container %}
+    <h1>Message</h1>
+    <hr class="my-4" />
+    <div class="post-preview">
+        <p class="post-meta">Email: {{message.email}}</p>
+        <p class="post-meta">Name: {{message.name}}</p>
+        <p class="text-justify text-break" style="display: block;">{{ message.text }}</p>
+        <p class="post-meta">Date: {{message.date}}</p>
+        <hr class="my-4" />
+        <a class="btn btn-primary btn-sm" href="{% url 'message-list'%}">Back</a>
+        {% if request.user.is_authenticated and request.user.is_staff %}
+            <a class="btn btn-danger btn-sm" href="{% url 'message-delete' message.id %}">Delete</a>
+        {%endif%}
+    </div>
+{% endblock %}
