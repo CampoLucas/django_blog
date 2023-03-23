@@ -1,94 +1,52 @@
-<div id="user-content-toc">
-    <ul>
-        <summary><h1>Projecto Final Coder House - Python</h1></summary>
-        <p>Alumno: Lucas Campo</p>
-        <p>Comisión: 48405</p>
-        <hr>
-    </ul>
- </div>
+# Projecto Final Coder House - Python
+<strong>
+Alumno: Lucas Campo</br>
+Comisión: 48405</br>
+</strong>
 
-<div>
-    <div id="user-content-toc">
-        <ul>
-            <summary><h2>Descripción</h2></summary>
-        </ul>
-    </div>
-    <p>Un sitio web donde personas u organizaciones pueden compartir sus pensamientos, opinione, experiencias o conocimientos sobre diversos temas de su interes.</p>
-</div>
+## Descripción
+Un sitio web donde personas u organizaciones pueden compartir sus pensamientos, opinione, experiencias o conocimientos sobre diversos temas de su interes.</br>
 
-<div>
-    <div id="user-content-toc">
-        <ul>
-            <summary><h2>Features</h2></summary>
-        </ul>
-    </div>
-    <ul>
-        <li><strong>Usuarios</strong>: Registrarse, logearse, editar perfiles, borrar perfiles, ver perfiles.</li>
-        <li><strong>Blogs</strong>: Crear blogs, editar blogs, borrar blogs, visitar blogs.</li>
-        <li><strong>Posts</strong>: Crear posts, editar posts, borrar posts, visitar posts.</li>
-        <li><strong>Mensajes</strong>: Enviar mensajes, ver mensajes, borrar mensajes.</li>
-        <li><strong>Barra de busqueda</strong>: Solo para buscar blogs.</li>
-        <li><strong>Home page</strong>: Pagina donde se muestran los ultimos blogs.</li>
-    </ul>
-</div>
+## Features
+- <strong>Usuarios</strong>: Registrarse, logearse, editar perfiles, borrar perfiles, ver perfiles.
+- <strong>Blogs</strong>: Crear blogs, editar blogs, borrar blogs, visitar blogs.
+- <strong>Posts</strong>: Crear posts, editar posts, borrar posts, visitar posts.
+- <strong>Mensajes</strong>: Enviar mensajes, ver mensajes, borrar mensajes.
+- <strong>Barra de busqueda</strong>: Solo para buscar blogs.
+- <strong>Home page</strong>: Pagina donde se muestran los ultimos blogs.
 
-<div>
-    <div id="user-content-toc">
-        <ul>
-            <summary><h2>Dependencias</h2></summary>
-        </ul>
-    </div>
-    <p>Para ejecutar este proyecto, necesitará Python 3.x y Django 3.x.</p>
-</div>
+## Dependencias
+Para ejecutar este proyecto, necesitará Python 3.x y Django 3.x.
 
-<div>
-    <div id="user-content-toc">
-        <ul>
-            <summary><h2>Como ejecutar la pagina</h2></summary>
-        </ul>
-    </div>
-    <p>Haga estos pasos en la terminal:</p>
-    <ul>
-        <li>Clone este repositorio: <strong>git clone https://github.com/CampoLucas/django_blog.git</strong></li>
-        <li>Ejecutar migraciones: <strong>python manage.py migrate</strong></li>
-        <li>Inicie el servidor de desarrollo: <strong>python manage.py runserver</strong></li>
-        <li>Visite el sitio web en su navegador en <strong>http://localhost:8000</strong></li>
-    </ul>
-</div>
+## Como ejecutar la pagina
+Haga estos pasos en la terminal</br></br>
+<strong>1. Clone el repositorio:</strong>
+```
+git clone https://github.com/CampoLucas/django_blog.git
+```
+<strong>2. Ejecutar migraciones</strong>
+```
+python manage.py migrate
+```
+<strong>3. Inicie el servidor</strong>
+```
+python manage.py runserver
+```
+<strong>4. Una vez que el servidor este corriendo, en el navegador visite el sitio web</strong>
+```
+http://localhost:8000
+```
 
-<div>
-    <div id="user-content-toc">
-        <ul>
-            <summary><h2>Tecnologías Utilizada</h2></summary>
-        </ul>
-    </div>
-    <h4>Front-End</p>
-    <ul>
-        <li>CSS</li>
-        <li>Bootstrap 5</li>
-    </ul>
-    <h4>Back-End</p>
-    <ul>
-        <li>Python</li>
-        <li>Django</li>
-    </ul>
-</div>
+## Tecnologias Utilizadas
+- Front-End:
+    - CSS
+    - Bootstrap
+- Back-End:
+    - Python
+    - Django
 
-<div>
-    <div id="user-content-toc">
-        <ul>
-            <summary><h2>Casos de Pruebas</h2></summary>
-        </ul>
-    </div>
-    <p>Ver el archivo "Casos de pruebas.xlsx" en este repositorio.</p>
-    <p>Link</p>
-</div>
-<hr>
-<div>
-    <div id="user-content-toc">
-        <ul>
-            <summary><h2>Video Demostración</h2></summary>
-        </ul>
-    </div>
-    <p>Link</p>
-</div>
+## Casos de prueba
+Haga click [aqui](#) para ver el documento
+
+## Video de Demostración
+Haga click [aqui](#) para ver el video
