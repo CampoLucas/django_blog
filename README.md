@@ -1,43 +1,43 @@
-# Projecto Final Coder House - Python
+# Coder House Final Project - Python
 <strong>
-Alumno: Lucas Campo</br>
-Comisión: 48405</br>
+Student: Lucas Campo</br>
+Commission: 48405</br>
 </strong>
 
-## Descripción
-Un sitio web donde personas u organizaciones pueden compartir sus pensamientos, opinione, experiencias o conocimientos sobre diversos temas de su interes.</br>
+## Description
+A website where people or organizations can share their thoughts, opinions, experiences or knowledge on various topics of interest.</br>
 
 ## Features
-- <strong>Usuarios</strong>: Registrarse, logearse, editar perfiles, borrar perfiles, ver perfiles.
-- <strong>Blogs</strong>: Crear blogs, editar blogs, borrar blogs, visitar blogs.
-- <strong>Posts</strong>: Crear posts, editar posts, borrar posts, visitar posts.
-- <strong>Mensajes</strong>: Enviar mensajes, ver mensajes, borrar mensajes.
-- <strong>Barra de busqueda</strong>: Solo para buscar blogs.
-- <strong>Home page</strong>: Pagina donde se muestran los ultimos blogs.
+- <strong>Users:</strong> Register, login, edit profiles, delete profiles, view profiles.
+- <strong>Blogs:</strong> Create blogs, edit blogs, delete blogs, visit blogs.
+- <strong>Posts:</strong> Create posts, edit posts, delete posts, visit posts.
+- <strong>Messages:</strong> Send messages, view messages, delete messages.
+- <strong>Search bar:</strong> Only to search for blogs.
+- <strong>Home page:</strong> Page where the latest blogs are displayed.
 
-## Dependencias
-Para ejecutar este proyecto, necesitará Python 3.x y Django 3.x.
+## Dependencies
+To run this project, you'll need Python 3.x and Django 3.x.
 
-## Como ejecutar la pagina
-Haga estos pasos en la terminal</br></br>
-<strong>1. Clone el repositorio:</strong>
+## How to run the page
+Do these steps in terminal</br></br>
+<strong>1. Clone the repository:</strong>
 ```
 git clone https://github.com/CampoLucas/django_blog.git
 ```
-<strong>2. Ejecutar migraciones</strong>
+<strong>2. Run migrations</strong>
 ```
 python manage.py migrate
 ```
-<strong>3. Inicie el servidor</strong>
+<strong>3. Start the server</strong>
 ```
 python manage.py runserver
 ```
-<strong>4. Una vez que el servidor este corriendo, en el navegador visite el sitio web</strong>
+<strong>4. Once the server is running, in the browser visit the website</strong>
 ```
 http://localhost:8000
 ```
 
-## Tecnologias Utilizadas
+## Used technology
 - Front-End:
     - CSS
     - Bootstrap
@@ -45,8 +45,8 @@ http://localhost:8000
     - Python
     - Django
 
-## Casos de prueba
-Haga click [aqui](Test%20cases.xlsx) para ver el documento
+## Test cases
+Click [here](Test%20cases.xlsx) to see the document
 
-## Video de Demostración
-Haga click [aqui](https://youtu.be/SrfbtL3Fac8) para ver el video
+## Demo Video in Spanish
+Click [here](https://youtu.be/SrfbtL3Fac8) to see the video
