@@ -4,9 +4,9 @@
 A website where people or organizations can share their thoughts, opinions, experiences or knowledge on various topics of interest.
 
 ## Features
-
-| **Users**         | Register, login, edit profiles, delete profiles, view profiles. |
+| Feature         | Description|
 | ----------------- | --------------------------------------------------------------- |
+| **Users**         | Register, login, edit profiles, delete profiles, view profiles. |
 | **Blogs**         | Create blogs, edit blogs, delete blogs, visit blogs.            |
 | **Posts**         | Create posts, edit posts, delete posts, visit posts.            |
 | **Messages**      | Send messages, view messages, delete messages.                  |
