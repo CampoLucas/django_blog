@@ -8,11 +8,7 @@
     
         <link rel="icon" type="image/x-icon" href="{% static 'app_blog/assets/favicon.ico' %}" />
         
-        
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
+        <!-- Core theme-->
         <link href="{% static 'app_blog/css/styles.css' %}" rel="stylesheet" />
         {% block scripts %}
         <!-- Font Awesome icons (free version)-->    
@@ -20,14 +16,7 @@
         {% endblock %}
 
         {% block style %}
-        <style>
-            main {
-                margin-top: 100px;
-            }
-
-            footer {
-                margin-top: 75px;
-            }
+        
         </style>
         {% endblock %}
 
@@ -37,59 +26,53 @@
     <body>
         <!-- Navigation-->
         {% block nav %}
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top {%block nav-color%}{%endblock%}" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+
+        <!-- Nav Bar -->
+        <div class="nav-bar">
+            <div class="nav-bar-cnt">
+                <div class="left">
                     {% if request.user.is_authenticated %}
-                    <li class="dropdown nav-item ">
-                        <a href="" class="nav-link text-light p-0" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="row align-items-center gx-2">
-                                <div class="col-auto">
-                                    <div class="ratio ratio-1x1 bg-image img-thumbnail rounded-pill" style="background-image: url('{% if request.user.avatar.profile_picture %}{{ request.user.avatar.profile_picture.url }}{% else %}/static/app_blog/assets/default_profile_picture.jpg{% endif %}'); background-position: center; background-size: contain; width: 30px;"></div>
+                    <!-- Profile information -->
+                    <a href="" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="user-cnt">
+                                <div class="image-cnt">
+                                    <div style="background-image: url('{% if request.user.avatar.profile_picture %}{{ request.user.avatar.profile_picture.url }}{% else %}/static/app_blog/assets/default_profile_picture.jpg{% endif %}');"></div>
                                 </div>
-                                <div class="col dropdown-toggle dropdown-toggle">
-                                    <span class="d-none d-sm-inline">{{ request.user.username }}</span>
+                                <div class="username-cnt">
+                                    <span>{{ request.user.username }}</span>
                                 </div>
-                            </div>
-                        </a>
+                        </div>
+                    </a>
 
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="{% url 'user-detail' request.user.id %}">Profile</a></li>
-                            <li><a class="dropdown-item" href="{% url 'user-add-blog' request.user.id %}">New Blog</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
-                        </ul>
-                    </li>
-                    {%else%}
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'login' %}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'register' %}">Sign Up</a></li>
-
-                    {%endif%}
-                </ul>
-
-                
-                
-                     
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="{% url 'home' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-light" href="#contact">Contact</a></li>                       
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'user-detail' request.user.id %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'user-add-blog' request.user.id %}">New Blog</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
                     </ul>
+
+                    {%else%}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Sign Up</a>
+                    {%endif%}
                 </div>
-                <form action="{% url 'post-search' %}" class="nav-item input-group rounded px-lg-3 py-3 w-25 h-25 ">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="criteria"/>
-                    <button class="btn btn-outline-light rounded btn-sm" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
+                <div class="right">
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#about">About</a>
+                    <form action="{% url 'post-search' %}" class="nav-search-bar">
+                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="criteria"/>
+                        <button class="btn btn-outline-light rounded btn-sm" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
                 </form>
+                </div>
+
             </div>
-        </nav>
+        </div>
+
         {% endblock %}
 
         <!-- Page Header -->
